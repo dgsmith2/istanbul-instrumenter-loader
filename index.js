@@ -1,17 +1,17 @@
 'use strict';
 
-var istanbul = require('istanbul');
+var createInstrumenter = require('istanbul-lib-instrument').createInstrumenter;
 var loaderUtils = require('loader-utils');
 var assign = require('object-assign');
 
 var defaultOptions = {
-    embedSource: true,
-    noAutoWrap: true
+    autoWrap: false
+    // produceSourceMap: true
 };
 
 module.exports = function(source) {
     var userOptions = loaderUtils.parseQuery(this.query);
-    var instrumenter = new istanbul.Instrumenter(
+    var instrumenter = createInstrumenter(
         assign({}, defaultOptions, userOptions)
     );
 
